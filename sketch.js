@@ -6,7 +6,7 @@
 let model;
 
 const options = {
-  inputs: 8*60, 
+  inputs: 16*10, 
   outputs: ['label'],
   task: 'classification',
   //learningRate: 0.75,
@@ -19,10 +19,19 @@ function setup(){
   
   model = ml5.neuralNetwork(options);
 
-  leftChunks = chunkArray(left, 8*60);
-  rightChunks = chunkArray(right, 8*60);
-  upChunks = chunkArray(up, 8*60);
-  downChunks = chunkArray(down, 8*60);
+
+  left = turnInto10FPS(left);
+  right = turnInto10FPS(right);
+  up = turnInto10FPS(up);
+  down = turnInto10FPS(down);
+
+  leftChunks = chunkArray(left, 16*10);
+  rightChunks = chunkArray(right, 16*10);
+  upChunks = chunkArray(up, 16*10);
+  downChunks = chunkArray(down, 16*10);
+
+
+
 }
 
 function addLeft(){
@@ -35,6 +44,7 @@ function addLeft(){
   console.log("Adding training data for LEFT");    
   console.log(leftChunks);    
 }
+
 function addRight(){
   for (let index = 0; index < 20; index++) {
     for (let i = 0; i < 10; i++) {
@@ -45,6 +55,7 @@ function addRight(){
   console.log("Adding training data for RIGHT");    
   console.log(rightChunks);    
 }
+
 function addUp(){
   for (let index = 0; index < 20; index++) {
     for (let i = 0; i < 10; i++) {
@@ -55,6 +66,7 @@ function addUp(){
   console.log("Adding training data for UP");    
   console.log(upChunks);    
 }
+
 function addDown(){
   for (let index = 0; index < 20; index++) {
     for (let i = 0; i < 10; i++) {
